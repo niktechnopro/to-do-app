@@ -11,13 +11,17 @@ class ToDo extends Component{
 		this.addNewTask = this.addNewTask.bind(this);
 		this.deleteTask = this.deleteTask.bind(this);
 		this.curentTasks = this.curentTasks.bind(this);
+	}
+
+	
+	componentDidMount(){
 		this.curentTasks()
 	}
 
 	curentTasks(){
 		axios({
 			method: "GET",
-			url: "http://localhost:3002/",
+			url: "http://localhost:3002/"
 		}).then((taskList)=>{
 			console.log(taskList.data);
 			this.setState({
@@ -66,9 +70,10 @@ class ToDo extends Component{
 
 	render(){
 		var taskArray = this.state.taskList.map((task,index)=>{
+			task.taskDate = new Date(task.taskDate);//this is how produce right date format
 			return(
 				<tr key={index}>
-					<td>{task.taskName} - {task.taskDate.toDateString}</td>
+					<td>{task.taskName} - {task.taskDate.toDateString()}</td>
 					<td><button onClick={()=>{
 					this.deleteTask(task.id)}}
 					 className="btn red">
