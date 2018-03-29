@@ -13,6 +13,11 @@ router.get('/', function(req, res){
 		if(error){
 			throw (error)
 		}else{
+			var newArray = results.filter((task, id)=>{
+				console.log(task.timeStamp.toDateString())
+				return (task.timeStamp.toDateString() == 'Thu Mar 29 2018')
+			})
+			console.log('this is what we are pulling from DB', newArray.length)
 			res.json(results)
 		}
 	})
